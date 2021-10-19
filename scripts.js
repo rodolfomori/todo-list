@@ -40,11 +40,19 @@ function deletarTarefa(index){
 }
 
 function adicionarTarefa() {
-    arrayDeTarefas.push({
-        tarefa: input.value,
-        concluida: false
-    }) 
 
+    if(input.value){
+        arrayDeTarefas.push({
+            tarefa: input.value,
+            concluida: false
+        }) 
+    } 
+    else {
+        alert("Digite uma tarefa")
+    }
+
+
+    input.value = ""
     mostrarTarefas()
 }
 
@@ -57,12 +65,24 @@ function concluirTarefa(index){
 function recarregarTarefas(){
     let minhasTarefas = localStorage.getItem("lista")
 
-    arrayDeTarefas = JSON.parse(minhasTarefas)
+    
+    if(minhasTarefas){
+        arrayDeTarefas = JSON.parse(minhasTarefas)
 
-    mostrarTarefas()
+        mostrarTarefas()
+    }
+}
+
+function adicionarPeloEnter(teclas){
+
+    if(teclas.key === "Enter"){
+        adicionarTarefa()
+    }
 }
 
 button.addEventListener("click", adicionarTarefa)
+
+document.addEventListener("keypress", adicionarPeloEnter)
 
 
 
